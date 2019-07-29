@@ -2,9 +2,9 @@
 
 import React from 'react'
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group';
-import TransitionGroup from 'react-transition-group/TransitionGroup';
+import { CSSTransition } from 'react-transition-group';
 
+import { grey } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -15,12 +15,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
 import UUIDv1 from 'uuid/v1';
-
-import StickyBoardColors from '../base/StickyBoardColors';
 
 const TABLE_TOOLBAR_HEIGHT = 56;
 
@@ -43,7 +40,7 @@ const styles = theme => ({
         overflow: 'hidden',
     },
     tableHead: {
-        borderBottom: '1px solid ' + StickyBoardColors.colorMediumDark,
+        borderBottom: '1px solid ' + grey[500],
     },
     tableBody: {
     },
@@ -162,18 +159,19 @@ class RealtimeTable extends React.Component {
                     id={tableId}
                     className={classes.tablePaper}>
                     <Table>
-                        <CSSTransitionGroup
-                            component="tbody"
-                            className={classes.tableBody}
-                            transitionName="example"
-                            transitionEnterTimeout={500}
-                            transitionLeaveTimeout={500}>
-                            {data.map((row, index) => {
-                                return (
+                        {data.map((row, index) => {
+                            const rowId = this.generateTableRowId(index);
+
+                            return (
+                                <CSSTransition
+                                    key={rowId}
+                                    component="tbody"
+                                    className={classes.tableBody}
+                                    classNames="example"
+                                    timeout={{ enter: 500, exit: 500 }}>
                                     <TableRow
-                                        id={this.generateTableRowId(index)}
+                                        id={rowId}
                                         hover={true}
-                                        key={index}
                                         className={classes.tableRow}>
                                         {Object.keys(row).map((key, index) => {
                                             return (
@@ -185,9 +183,9 @@ class RealtimeTable extends React.Component {
                                             )
                                         })}
                                     </TableRow>
-                                );
-                            })}
-                        </CSSTransitionGroup>
+                                </CSSTransition>
+                            );
+                        })}
                     </Table>
                 </div>
 

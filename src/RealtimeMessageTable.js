@@ -2,7 +2,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types';
-import { CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransition } from 'react-transition-group'
 
 import { grey } from '@material-ui/core/colors';
 import { withStyles } from '@material-ui/core/styles';
@@ -10,13 +10,14 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 
 import UUIDv1 from 'uuid/v1';
 
 const TABLE_TOOLBAR_HEIGHT = 56;
+
+require('../static/css/style.css');
 
 const styles = theme => ({
     root: {
@@ -142,16 +143,16 @@ class RealtimeMessageTable extends React.Component {
                 <div
                     id={tableId}
                     className={classes.tablePaper}>
-                    <CSSTransitionGroup
-                        component="div"
-                        transitionName="example"
-                        transitionEnterTimeout={700}
-                        transitionLeaveTimeout={700}>
-                        {data.map((row, index) => {
-                            return (
+                    {data.map((row, index) => {
+                        const rowId = this.generateTableRowId(index);
+
+                        return (
+                            <CSSTransition
+                                key={rowId}
+                                classNames="example"
+                                timeout={{ enter: 700, exit: 700 }}>
                                 <div
-                                    id={this.generateTableRowId(index)}
-                                    key={index}
+                                    id={rowId}
                                     className={classes.messageContainer}>
                                     <Avatar
                                         alt={row.sender.name}
@@ -166,9 +167,9 @@ class RealtimeMessageTable extends React.Component {
                                         </span>
                                     </div>
                                 </div>
-                            );
-                        })}
-                    </CSSTransitionGroup>
+                            </CSSTransition>
+                        );
+                    })}
                 </div>
             </div>
         )

@@ -42,8 +42,11 @@ const styles = theme => ({
     spacer: {
         flex: '1 1 100%',
     },
+    actions: {
+
+    },
     tablePaper: {
-        height: 'calc(100% - ' + (Const.TABLE_TOOLBAR_HEIGHT * 3 + theme.spacing.unit * 2) + 'px)',
+        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 3 + theme.spacing.unit * 2) + 'px)',
         overflow: 'auto',
     },
     tableHead: {
@@ -133,11 +136,9 @@ class TableWithPagination extends React.Component {
                     </div>
                     <div className={classes.spacer} />
                     <div className={classes.actions}>
-                        <Tooltip title="Refresh">
-                            <IconButton aria-label="Refresh">
-                                <RefreshIcon />
-                            </IconButton>
-                        </Tooltip>
+                        <IconButton aria-label="Refresh">
+                            <RefreshIcon />
+                        </IconButton>
                     </div>
                 </Toolbar>
 
