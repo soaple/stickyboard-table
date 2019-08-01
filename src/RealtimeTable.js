@@ -24,18 +24,18 @@ const TABLE_TOOLBAR_HEIGHT = 56;
 const styles = theme => ({
     root: {
         height: '100%',
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
     },
     toolbar: {
         height: TABLE_TOOLBAR_HEIGHT,
-        paddingLeft: theme.spacing.unit,
-        paddingRight: theme.spacing.unit,
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
     },
     title: {
         flex: '0 0 auto',
     },
     tablePaper: {
-        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 2 + theme.spacing.unit * 2) + 'px)',
+        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 2 + theme.spacing(2)) + 'px)',
         // overflow: 'auto',
         overflow: 'hidden',
     },
@@ -45,7 +45,7 @@ const styles = theme => ({
     tableBody: {
     },
     tableRow: {
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
         // '&:nth-of-type(odd)': {
         //     backgroundColor: 'rgb(228, 228, 228)',
         // },

@@ -22,26 +22,26 @@ require('../static/css/style.css');
 const styles = theme => ({
     root: {
         height: '100%',
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
     },
     toolbar: {
         height: TABLE_TOOLBAR_HEIGHT,
-        paddingLeft: theme.spacing.unit,
-        paddingRight: theme.spacing.unit,
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
     },
     tablePaper:{
-        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 1 + theme.spacing.unit * 2) + 'px)',
+        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 1 + theme.spacing(2)) + 'px)',
         // overflow: 'auto',
         overflow: 'hidden',
     },
     messageContainer: {
         display: 'flex',
         alignItems: 'center',
-        padding: theme.spacing.unit,
+        padding: theme.spacing(1),
     },
     avatar: {
         flex: '0 0 auto',
-        marginRight: theme.spacing.unit * 2,
+        marginRight: theme.spacing(2),
         width: '60px',
         height: '60px',
     },
@@ -54,10 +54,10 @@ const styles = theme => ({
     },
     message: {
         display: 'block',
-        marginTop: theme.spacing.unit,
-        padding: theme.spacing.unit * 2,
+        marginTop: theme.spacing(1),
+        padding: theme.spacing(2),
         background: grey[200],
-        borderRadius: theme.spacing.unit * 2,
+        borderRadius: theme.spacing(2),
     },
 });
 

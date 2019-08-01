@@ -29,12 +29,12 @@ const TABLE_TOOLBAR_HEIGHT = 56;
 const styles = theme => ({
     root: {
         height: '100%',
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
     },
     toolbar: {
         height: TABLE_TOOLBAR_HEIGHT,
-        paddingLeft: theme.spacing.unit,
-        paddingRight: theme.spacing.unit,
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
     },
     title: {
         flex: '0 0 auto',
@@ -46,7 +46,7 @@ const styles = theme => ({
 
     },
     tablePaper: {
-        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 3 + theme.spacing.unit * 2) + 'px)',
+        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 3 + theme.spacing(2)) + 'px)',
         overflow: 'auto',
     },
     tableHead: {
@@ -55,7 +55,7 @@ const styles = theme => ({
     tableBody: {
     },
     tableRow: {
-        padding: theme.spacing.unit * 2,
+        padding: theme.spacing(2),
         // '&:nth-of-type(odd)': {
         //     backgroundColor: 'rgb(228, 228, 228)',
         // },
@@ -196,7 +196,7 @@ class TableWithPagination extends React.Component {
                 <div>
                     <Table>
                         <TableFooter className={classes.tableFooter}>
-                            <TableRow>
+
                                 <TablePagination
                                     className={classes.tablePagination}
                                     colSpan={3}
@@ -208,7 +208,7 @@ class TableWithPagination extends React.Component {
                                     onChangePage={this.onChangeTablePage}
                                     onChangeRowsPerPage={this.onChangeTableRowsPerPage}
                                     ActionsComponent={TablePaginationActions} />
-                            </TableRow>
+                            
                         </TableFooter>
                     </Table>
                 </div>

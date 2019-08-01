@@ -9,10 +9,10 @@
         "build": "webpack"
     },
     "dependencies": {
-        "@material-ui/core": "^1.1.0",
-        "@material-ui/icons": "^1.1.0",
+        "@material-ui/core": "^4.3.0",
+        "@material-ui/icons": "^4.2.1",
         "prop-types": "^15.7.2",
-        "react": "^16.4.0",
+        "react": "^16.8.6",
         "react-dom": "^16.8.6",
         "react-transition-group": "^4.2.1",
         "uuid": "^3.3.2"
