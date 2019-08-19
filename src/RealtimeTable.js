@@ -24,7 +24,6 @@ const TABLE_TOOLBAR_HEIGHT = 56;
 const styles = theme => ({
     root: {
         height: '100%',
-        padding: theme.spacing(2),
     },
     toolbar: {
         height: TABLE_TOOLBAR_HEIGHT,
@@ -129,7 +128,7 @@ class RealtimeTable extends React.Component {
                 {/* Table Toolbar */}
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.title}>
-                        <Typography variant="title">
+                        <Typography variant="h6">
                             {this.props.title}
                         </Typography>
                     </div>
@@ -159,33 +158,35 @@ class RealtimeTable extends React.Component {
                     id={tableId}
                     className={classes.tablePaper}>
                     <Table>
-                        {data.map((row, index) => {
-                            const rowId = this.generateTableRowId(index);
+                        <TableBody>
+                            {data.map((row, index) => {
+                                const rowId = this.generateTableRowId(index);
 
-                            return (
-                                <CSSTransition
-                                    key={rowId}
-                                    component="tbody"
-                                    className={classes.tableBody}
-                                    classNames="example"
-                                    timeout={{ enter: 500, exit: 500 }}>
-                                    <TableRow
-                                        id={rowId}
-                                        hover={true}
-                                        className={classes.tableRow}>
-                                        {Object.keys(row).map((key, index) => {
-                                            return (
-                                                <TableCell
-                                                    key={index}
-                                                    style={{width: '20%'}}>
-                                                    {row[key]}
-                                                </TableCell>
-                                            )
-                                        })}
-                                    </TableRow>
-                                </CSSTransition>
-                            );
-                        })}
+                                return (
+                                    <CSSTransition
+                                        key={rowId}
+                                        component="tbody"
+                                        className={classes.tableBody}
+                                        classNames="example"
+                                        timeout={{ enter: 500, exit: 500 }}>
+                                        <TableRow
+                                            id={rowId}
+                                            hover={true}
+                                            className={classes.tableRow}>
+                                            {Object.keys(row).map((key, index) => {
+                                                return (
+                                                    <TableCell
+                                                        key={index}
+                                                        style={{width: '20%'}}>
+                                                        {row[key]}
+                                                    </TableCell>
+                                                )
+                                            })}
+                                        </TableRow>
+                                    </CSSTransition>
+                                );
+                            })}
+                        </TableBody>
                     </Table>
                 </div>
 

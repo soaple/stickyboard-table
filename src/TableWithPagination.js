@@ -29,7 +29,6 @@ const TABLE_TOOLBAR_HEIGHT = 56;
 const styles = theme => ({
     root: {
         height: '100%',
-        padding: theme.spacing(2),
     },
     toolbar: {
         height: TABLE_TOOLBAR_HEIGHT,
@@ -89,32 +88,11 @@ class TableWithPagination extends React.Component {
         this.setState({
             page: page,
         });
-
-        // let offset = Math.ceil(page * ITEMS_PER_PAGE);
-        //
-        // ApiManager.readPosts(
-        //     offset,
-        //     this.props.rowsPerPage,
-        //     this.readPostsCallback);
     };
 
     onChangeTableRowsPerPage = event => {
         this.setState({ rowsPerPage: event.target.value });
     };
-
-    readPostsCallback  = (statusCode, response) => {
-        switch (statusCode) {
-        case StatusCode.OK:
-            console.log(response)
-            this.setState({
-                data: response,
-            });
-            break
-        default:
-            alert(response.msg);
-            break
-        }
-    }
 
     render () {
         const { classes, theme } = this.props;
@@ -130,7 +108,7 @@ class TableWithPagination extends React.Component {
                 {/* Table Toolbar */}
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.title}>
-                        <Typography variant="title">
+                        <Typography variant="h6">
                             {this.props.title}
                         </Typography>
                     </div>
@@ -143,23 +121,21 @@ class TableWithPagination extends React.Component {
                 </Toolbar>
 
                 {/* Table Head */}
-                <div>
-                    <Table>
-                        <TableHead className={classes.tableHead}>
-                            <TableRow>
-                                {data.length > 0 && Object.keys(data[0]).map((key, index) => {
-                                    return (
-                                        <TableCell
-                                            key={index}
-                                            style={{width: '20%'}}>
-                                            {key.toUpperCase()}
-                                        </TableCell>
-                                    )
-                                })}
-                            </TableRow>
-                        </TableHead>
-                    </Table>
-                </div>
+                <Table>
+                    <TableHead className={classes.tableHead}>
+                        <TableRow>
+                            {data.length > 0 && Object.keys(data[0]).map((key, index) => {
+                                return (
+                                    <TableCell
+                                        key={index}
+                                        style={{width: '20%'}}>
+                                        {key.toUpperCase()}
+                                    </TableCell>
+                                )
+                            })}
+                        </TableRow>
+                    </TableHead>
+                </Table>
 
                 {/* Table Body */}
                 <div className={classes.tablePaper}>
@@ -193,25 +169,24 @@ class TableWithPagination extends React.Component {
                 </div>
 
                 {/* Table Footer */}
-                <div>
-                    <Table>
-                        <TableFooter className={classes.tableFooter}>
+                <Table>
+                    <TableFooter className={classes.tableFooter}>
+                        <TableRow>
+                            <TablePagination
+                                className={classes.tablePagination}
+                                colSpan={3}
+                                count={data.length}
+                                labelRowsPerPage={'rowsPerPage'}
+                                rowsPerPage={rowsPerPage}
+                                rowsPerPageOptions={[5, 10, 15, 20]}
+                                page={page}
+                                onChangePage={this.onChangeTablePage}
+                                onChangeRowsPerPage={this.onChangeTableRowsPerPage}
+                                ActionsComponent={TablePaginationActions} />
+                        </TableRow>
+                    </TableFooter>
+                </Table>
 
-                                <TablePagination
-                                    className={classes.tablePagination}
-                                    colSpan={3}
-                                    count={data.length}
-                                    labelRowsPerPage={'rowsPerPage'}
-                                    rowsPerPage={rowsPerPage}
-                                    rowsPerPageOptions={[5, 10, 15, 20]}
-                                    page={page}
-                                    onChangePage={this.onChangeTablePage}
-                                    onChangeRowsPerPage={this.onChangeTableRowsPerPage}
-                                    ActionsComponent={TablePaginationActions} />
-                            
-                        </TableFooter>
-                    </Table>
-                </div>
             </div>
         )
     }

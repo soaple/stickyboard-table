@@ -22,7 +22,6 @@ require('../static/css/style.css');
 const styles = theme => ({
     root: {
         height: '100%',
-        padding: theme.spacing(2),
     },
     toolbar: {
         height: TABLE_TOOLBAR_HEIGHT,
@@ -134,7 +133,7 @@ class RealtimeMessageTable extends React.Component {
                 {/* Toolbar */}
                 <Toolbar className={classes.toolbar}>
                     <div className={classes.title}>
-                        <Typography variant="title">
+                        <Typography variant="h6">
                             {this.props.title}
                         </Typography>
                     </div>
