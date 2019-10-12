@@ -26,14 +26,14 @@ import TablePaginationActions from './TablePaginationActions';
 
 const TABLE_TOOLBAR_HEIGHT = 56;
 
-const styles = theme => ({
+const styles = {
     root: {
         height: '100%',
     },
     toolbar: {
         height: TABLE_TOOLBAR_HEIGHT,
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
+        paddingLeft: 8,
+        paddingRight: 8,
     },
     title: {
         flex: '0 0 auto',
@@ -45,7 +45,7 @@ const styles = theme => ({
 
     },
     tablePaper: {
-        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 3 + theme.spacing(2)) + 'px)',
+        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 3 + 16) + 'px)',
         overflow: 'auto',
     },
     tableHead: {
@@ -54,7 +54,7 @@ const styles = theme => ({
     tableBody: {
     },
     tableRow: {
-        padding: theme.spacing(2),
+        padding: 16,
         // '&:nth-of-type(odd)': {
         //     backgroundColor: 'rgb(228, 228, 228)',
         // },
@@ -65,7 +65,7 @@ const styles = theme => ({
     tablePagination: {
         overflow: 'auto',
     },
-});
+};
 
 class TableWithPagination extends React.Component {
     constructor (props) {
@@ -95,7 +95,7 @@ class TableWithPagination extends React.Component {
     };
 
     render () {
-        const { classes, theme } = this.props;
+        const { classes } = this.props;
         const { data } = this.props;
         const { rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
@@ -194,7 +194,6 @@ class TableWithPagination extends React.Component {
 
 TableWithPagination.propTypes = {
     classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(TableWithPagination);
+export default withStyles(styles)(TableWithPagination);
