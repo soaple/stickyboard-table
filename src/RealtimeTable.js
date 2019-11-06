@@ -1,55 +1,21 @@
-// src/components/page/RealtimeTable.js
+// src/RealtimeTable.js
 
 import React from 'react'
 import PropTypes from 'prop-types';
-import { CSSTransition } from 'react-transition-group';
-
-import { grey } from '@material-ui/core/colors';
-import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-
+import styled from 'styled-components';
 import UUIDv1 from 'uuid/v1';
-
-const TABLE_TOOLBAR_HEIGHT = 56;
-
-const styles = theme => ({
-    root: {
-        height: '100%',
-    },
-    toolbar: {
-        height: TABLE_TOOLBAR_HEIGHT,
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1),
-    },
-    title: {
-        flex: '0 0 auto',
-    },
-    tablePaper: {
-        height: 'calc(100% - ' + (TABLE_TOOLBAR_HEIGHT * 2 + theme.spacing(2)) + 'px)',
-        // overflow: 'auto',
-        overflow: 'hidden',
-    },
-    tableHead: {
-        borderBottom: '1px solid ' + grey[500],
-    },
-    tableBody: {
-    },
-    tableRow: {
-        padding: theme.spacing(2),
-        // '&:nth-of-type(odd)': {
-        //     backgroundColor: 'rgb(228, 228, 228)',
-        // },
-    },
-});
+import {
+    Table,
+    TableToolbar,
+    TableToolbarTitle,
+    TableHeader,
+    TableHead,
+    TableBody,
+    TableRowEmpty,
+    TableRow,
+    TableData,
+    TableFooter,
+} from './Table';
 
 class RealtimeTable extends React.Component {
     constructor (props) {
@@ -72,20 +38,6 @@ class RealtimeTable extends React.Component {
         // }
     }
 
-    // readPostsCallback  = (statusCode, response) => {
-    //     switch (statusCode) {
-    //     case StatusCode.OK:
-    //         console.log(response)
-    //         this.setState({
-    //             data: response,
-    //         });
-    //         break
-    //     default:
-    //         alert(response.msg);
-    //         break
-    //     }
-    // }
-
     scrollToBottom = (lastIndex) => {
         // let lastIndex = this.props.data.length - 1;
         if (lastIndex >= 0) {
@@ -95,7 +47,7 @@ class RealtimeTable extends React.Component {
             if (targetElement !== null) {
                 var topPos = targetElement.offsetTop;
                 var containerElement = document.getElementById(this.state.tableId);
-                // console.log(topPos);
+                console.log(topPos, containerElement);
 
                 var anim = setInterval(() => {
                     containerElement.scrollTop += 1;
@@ -118,86 +70,58 @@ class RealtimeTable extends React.Component {
         return this.state.tableId + '_row' + index;
     }
 
-    render () {
-        const { classes, theme } = this.props;
-        const { data } = this.props;
+    render() {
         const { tableId } = this.state;
+        const { data } = this.props;
 
         return (
-            <div className={classes.root}>
+            <Table id={tableId}>
                 {/* Table Toolbar */}
-                <Toolbar className={classes.toolbar}>
-                    <div className={classes.title}>
-                        <Typography variant="h6">
-                            {this.props.title}
-                        </Typography>
-                    </div>
-                </Toolbar>
+                <TableToolbar>
+                    <TableToolbarTitle>{this.props.title}</TableToolbarTitle>
+                </TableToolbar>
 
                 {/* Table Head */}
-                <div>
-                    <Table>
-                        <TableHead className={classes.tableHead}>
-                            <TableRow>
-                                {data.length > 0 && Object.keys(data[0]).map((key, index) => {
+                <TableHeader>
+                    <TableRow>
+                        {data.length > 0 && Object.keys(data[0]).map((key, index) => {
+                            return (
+                                <TableHead
+                                    key={index}>
+                                    {key.toUpperCase()}
+                                </TableHead>
+                            )
+                        })}
+                    </TableRow>
+                </TableHeader>
+
+                {/* Table Body */}
+                <TableBody>
+                    {data.map((row, index) => {
+                        const rowId = this.generateTableRowId(index);
+
+                        return (
+                            <TableRow
+                                id={rowId}
+                                hover={true}>
+                                {Object.keys(row).map((key, index) => {
                                     return (
-                                        <TableCell
-                                            key={index}
-                                            style={{width: '20%'}}>
-                                            {key.toUpperCase()}
-                                        </TableCell>
+                                        <TableData
+                                            key={index}>
+                                            {row[key]}
+                                        </TableData>
                                     )
                                 })}
                             </TableRow>
-                        </TableHead>
-                    </Table>
-                </div>
-
-                {/* Table Body */}
-                <div
-                    id={tableId}
-                    className={classes.tablePaper}>
-                    <Table>
-                        <TableBody>
-                            {data.map((row, index) => {
-                                const rowId = this.generateTableRowId(index);
-
-                                return (
-                                    <CSSTransition
-                                        key={rowId}
-                                        component="tbody"
-                                        className={classes.tableBody}
-                                        classNames="example"
-                                        timeout={{ enter: 500, exit: 500 }}>
-                                        <TableRow
-                                            id={rowId}
-                                            hover={true}
-                                            className={classes.tableRow}>
-                                            {Object.keys(row).map((key, index) => {
-                                                return (
-                                                    <TableCell
-                                                        key={index}
-                                                        style={{width: '20%'}}>
-                                                        {row[key]}
-                                                    </TableCell>
-                                                )
-                                            })}
-                                        </TableRow>
-                                    </CSSTransition>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
-                </div>
-
-            </div>
+                        );
+                    })}
+                </TableBody>
+            </Table>
         )
     }
 }
 
 RealtimeTable.propTypes = {
-    classes: PropTypes.object.isRequired,
-    theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(RealtimeTable);
+export default RealtimeTable;
