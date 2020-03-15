@@ -4,8 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const TOOLBAR_HEIGHT = 56;
-const HEADER_HEIGHT = 56;
-const ROW_HEIGHT = 56;
+const HEADER_MIN_HEIGHT = 56;
 const FOOTER_HEIGHT = 56;
 
 export const Table = styled.div`
@@ -17,8 +16,8 @@ export const Table = styled.div`
 export const TableToolbar = styled.div`
     width: 100%;
     height: ${TOOLBAR_HEIGHT}px;
-    position: absolute;
-    top: 0;
+    /* position: absolute;
+    top: 0; */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -34,10 +33,10 @@ export const TableToolbarTitle = styled.div`
 
 export const TableHeader = styled.div`
     width: 100%;
-    height: ${HEADER_HEIGHT}px;
-    position: absolute;
-    top: ${TOOLBAR_HEIGHT}px;
+    /* position: absolute;
+    top: ${TOOLBAR_HEIGHT}px; */
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
@@ -46,6 +45,9 @@ export const TableHeader = styled.div`
 
 export const TableHead = styled.div`
     flex: 1;
+    flex-shrink: 0;
+    flex-basis: 100px;
+    padding: 4px 0;
     font-size: 18px;
     font-weight: 500;
     text-align: center;
@@ -55,9 +57,11 @@ export const TableHead = styled.div`
 
 export const TableBody = styled.div`
     width: 100%;
-    position: absolute;
-    top: ${TOOLBAR_HEIGHT + HEADER_HEIGHT}px;
-    bottom: ${FOOTER_HEIGHT}px;
+    height: calc(100% - ${props =>
+        props.headerHeight + TOOLBAR_HEIGHT + FOOTER_HEIGHT}px);
+    /* position: absolute;
+    top: ${TOOLBAR_HEIGHT + HEADER_MIN_HEIGHT}px;
+    bottom: ${FOOTER_HEIGHT}px; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -65,12 +69,14 @@ export const TableBody = styled.div`
     background-color: #ffffff;
 `;
 
+
 export const TableRow = styled.div`
     flex: 1;
-    min-height: ${ROW_HEIGHT}px;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
+    padding: 4px 0;
     align-items: center;
     ${props => props.showBorderBottom && `
         border-bottom: 1px solid #dddddd;
@@ -83,6 +89,8 @@ export const TableRowEmpty = styled.div`
 
 export const TableData = styled.div`
     flex: 1;
+    flex-shrink: 0;
+    flex-basis: 100px;
     font-size: 14px;
     text-align: center;
     overflow: hidden;
@@ -94,8 +102,8 @@ export const TableData = styled.div`
 export const TableFooter = styled.div`
     width: 100%;
     height: ${FOOTER_HEIGHT}px;
-    position: absolute;
-    bottom: 0;
+    /* position: absolute;
+    bottom: 0; */
     display: flex;
     flex-direction: row;
     justify-content: space-around;

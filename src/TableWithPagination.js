@@ -19,12 +19,23 @@ import TablePagination from './TablePagination';
 
 class TableWithPagination extends React.Component {
     constructor (props) {
-        super(props)
+        super(props);
+
+        this.tableHeader = React.createRef();
 
         this.state = {
+            headerHeight: 0,
             // Table Pagination
             rowsPerPage: 10,
             page: 1,
+        }
+    }
+
+    componentDidMount() {
+        if (this.tableHeader.current) {
+            this.setState({
+                headerHeight: this.tableHeader.current.offsetHeight,
+            });
         }
     }
 
@@ -58,7 +69,7 @@ class TableWithPagination extends React.Component {
     };
 
     render() {
-        const { rowsPerPage, page } = this.state;
+        const { headerHeight, rowsPerPage, page } = this.state;
         const { title, data } = this.props;
 
         const totalPage = Math.ceil(data.length / rowsPerPage);
@@ -74,7 +85,7 @@ class TableWithPagination extends React.Component {
                 </TableToolbar>
 
                 {/* Table Header */}
-                <TableHeader>
+                <TableHeader ref={this.tableHeader}>
                     {data.length > 0 && Object.keys(data[0]).map((key, index) => {
                         return (
                             <TableHead
@@ -86,7 +97,7 @@ class TableWithPagination extends React.Component {
                 </TableHeader>
 
                 {/* Table Body */}
-                <TableBody>
+                <TableBody headerHeight={headerHeight}>
                     {currentPageData.map((post, index) => {
                         return (
                             <TableRow
