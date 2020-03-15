@@ -47,7 +47,6 @@ export const TableHead = styled.div`
     flex: 1;
     flex-shrink: 0;
     flex-basis: 100px;
-    padding: 4px 0;
     font-size: 18px;
     font-weight: 500;
     text-align: center;
@@ -76,7 +75,6 @@ export const TableRow = styled.div`
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-around;
-    padding: 4px 0;
     align-items: center;
     ${props => props.showBorderBottom && `
         border-bottom: 1px solid #dddddd;

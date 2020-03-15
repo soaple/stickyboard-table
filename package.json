@@ -1,6 +1,6 @@
 {
     "name": "@stickyboard/table",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Table components for StickyBoard",
     "main": "dist/index.js",
     "scripts": {
