@@ -58,8 +58,8 @@ class TableWithPagination extends React.Component {
     };
 
     render() {
-        const { data } = this.props;
         const { rowsPerPage, page } = this.state;
+        const { title, data } = this.props;
 
         const totalPage = Math.ceil(data.length / rowsPerPage);
         const offset = Math.ceil((page - 1) * rowsPerPage);
@@ -70,7 +70,7 @@ class TableWithPagination extends React.Component {
             <Table>
                 {/* Table Toolbar */}
                 <TableToolbar>
-                    <TableToolbarTitle>{this.props.title}</TableToolbarTitle>
+                    <TableToolbarTitle>{title}</TableToolbarTitle>
                 </TableToolbar>
 
                 {/* Table Header */}

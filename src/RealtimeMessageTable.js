@@ -93,13 +93,13 @@ class RealtimeMessageTable extends React.Component {
 
     render() {
         const { tableId } = this.state;
-        const { data } = this.props;
+        const { title, data } = this.props;
 
         return (
             <Table id={tableId}>
                 {/* Table Toolbar */}
                 <TableToolbar>
-                    <TableToolbarTitle>{this.props.title}</TableToolbarTitle>
+                    <TableToolbarTitle>{title}</TableToolbarTitle>
                 </TableToolbar>
 
                 {/* Table Body */}
